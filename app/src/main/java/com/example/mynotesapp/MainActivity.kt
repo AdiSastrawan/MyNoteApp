@@ -48,15 +48,14 @@ class MainActivity : AppCompatActivity() {
         if(list.size >0){
 
         binding.rvNotes.layoutManager = LinearLayoutManager(this)
-        var listNoteAdapter = ListNoteAdapter(list)
+        var listNoteAdapter = ListNoteAdapter(this,list)
         binding.rvNotes.adapter = listNoteAdapter
         }
     }
-    
-    private fun loadJson(): ArrayList<Notes>{
+
+    fun loadJson(): ArrayList<Notes>{
         val gson = Gson()
         try {
-
             val outputStreamReader = openFileInput("notes.json")
             val jsonReader =  BufferedReader( InputStreamReader(outputStreamReader))
             val type = object : TypeToken<List<Notes>>() {}.type
@@ -74,8 +73,6 @@ class MainActivity : AppCompatActivity() {
         }catch(e:NullPointerException){
             return ArrayList()
         }
-
-
     }
 
 
